@@ -64,11 +64,6 @@ function ps1_gen() {
     LIGHTNING=$'\u26a1'
     GEAR=$'\u2699'
 
-    # STAT_COLOR=90
-    # VIRTUALENV_COLOR=34
-    # DIR_COLOR=35
-    # GIT_COLOR=30
-    # FG_DEF=30
     STAT_COLOR=232
     VIRTUALENV_COLOR=18
     DIR_COLOR=24
