@@ -28,6 +28,8 @@ function get_git_stat() {
             elif [[ $(git rev-list HEAD..HEAD@{upstream} | wc -l) != 0 ]]; then
                 echo 4 # behind
             fi
+            else
+                echo 1 # clean
         else
             echo 1 # clean
         fi
