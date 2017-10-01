@@ -63,6 +63,9 @@ function ps1_gen() {
     CROSS=$'\u2718'
     LIGHTNING=$'\u26a1'
     GEAR=$'\u2699'
+    PUSH=$'\u21d1'
+    PULL=$'\u21d3'
+    MERGE=$'\u2694'
 
     STAT_COLOR=232
     VIRTUALENV_COLOR=18
@@ -95,6 +98,13 @@ function ps1_gen() {
             prompt_git="${DETACHED} ${git_head_sh1::7}"
         else
             prompt_git="${BRANCH} ${git_branch}"
+        fi
+        if [[ $GIT_STAT == 3 ]]; then
+            prompt_git="${prompt_git}${PUSH}"
+        elif [[ $GIT_STAT == 4 ]]; then
+            prompt_git="${prompt_git}${PULL}"
+        elif [[ $GIT_STAT == 5 ]]; then
+            prompt_git="${prompt_git}${MERGE} "
         fi
         if [[ $GIT_STAT == 1 ]]; then
             GIT_COLOR=28
