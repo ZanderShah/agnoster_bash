@@ -43,12 +43,10 @@ function is_git_detached() {
 }
 
 function get_fg() {
-    # echo "\[\e[${1}m\]"
     echo "\[\e[38;5;${1}m\]"
 }
 
 function get_bg() {
-    # echo "\[\e[$[${1} + 10]m\]"
     echo "\[\e[48;5;${1}m\]"
 }
 
@@ -112,11 +110,6 @@ function ps1_gen() {
         fi
     fi
 
-    # prompt_begin="`get_fg 0`"
-    # if [[ $prompt_stat != "" ]]; then
-    #     prompt_stat="`get_bg $STAT_COLOR`${SEGMENT_SEPARATOR}`get_fg $FG_DEF` ${prompt_stat}`get_fg $STAT_COLOR`"
-    # fi
-    # prompt_begin="`get_fg 0`"
     if [[ $prompt_stat != "" ]]; then
         prompt_stat="`get_bg $STAT_COLOR``get_fg $FG_DEF`${prompt_stat}`get_fg $STAT_COLOR`"
     fi
@@ -131,7 +124,7 @@ function ps1_gen() {
     fi
     prompt_end="`get_bg 0`${SEGMENT_SEPARATOR}${NO_COLOR} "
 
-    PS1="${prompt_begin}${prompt_stat}${prompt_virtualenv}${prompt_dir}${prompt_git}${prompt_end}"
+    PS1="${prompt_stat}${prompt_virtualenv}${prompt_dir}${prompt_git}${prompt_end}"
 
     unset SEGMENT_SEPARATOR
     unset PLUSMINUS
@@ -148,7 +141,6 @@ function ps1_gen() {
     unset prompt_git
     unset prompt_stat
     unset prompt_end
-    # unset prompt_begin
     unset STAT_COLOR
     unset VIRTUALENV_COLOR
     unset DIR_COLOR
@@ -157,8 +149,6 @@ function ps1_gen() {
     unset FG_DEF
 }
 
-_PS1_BAK=${PS1:: -3}
-_PS1_BAK_PROMPT=${PS1: -3}
 PS2="${PROMPT_COLOR}${PS2}\e[0m"
 PS3="${PROMPT_COLOR}${PS3}\e[0m"
 PS4="${PROMPT_COLOR}${PS4}\e[0m"
