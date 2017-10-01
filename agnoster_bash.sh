@@ -27,9 +27,9 @@ function get_git_stat() {
                 echo 3 # ahead
             elif [[ $(git rev-list HEAD..HEAD@{upstream} | wc -l) != 0 ]]; then
                 echo 4 # behind
-            fi
             else
                 echo 1 # clean
+            fi
         else
             echo 1 # clean
         fi
