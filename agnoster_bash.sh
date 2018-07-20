@@ -14,7 +14,7 @@
 
 PROMPT_COLOR="\[\e[1;2m\]"
 
-function get_git_stat() {
+function get_git_stat {
     if [[ $(git rev-parse --git-dir 2>/dev/null | wc -l) == 0 ]]; then
         echo 0 # not a git repo
     else
@@ -36,7 +36,7 @@ function get_git_stat() {
     fi
 }
 
-function is_git_detached() {
+function is_git_detached {
     if [[ $(git rev-parse --abbrev-ref HEAD 2>/dev/null) == "HEAD" ]]; then
         echo 1
     else
@@ -44,15 +44,15 @@ function is_git_detached() {
     fi
 }
 
-function get_fg() {
+function get_fg {
     echo "\[\e[38;5;${1}m\]"
 }
 
-function get_bg() {
+function get_bg {
     echo "\[\e[48;5;${1}m\]"
 }
 
-function ps1_gen() {
+function ps1_gen {
     retval=$?
     GIT_STAT=$(get_git_stat)
     git_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
