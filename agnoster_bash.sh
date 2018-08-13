@@ -18,14 +18,14 @@ function get_git_stat {
     if [[ $(git rev-parse --git-dir 2>/dev/null | wc -l) == 0 ]]; then
         echo 0 # not a git repo
     else
-        if [[ $(git status --porcelain | wc -l) != 0 ]]; then
+        if [[ $(git status --porcelain 2>/dev/null | wc -l) != 0 ]]; then
             echo 2 # modified
         elif [[ $(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null | wc -l) != 0 ]]; then
-            if [[ $(git rev-list HEAD@{upstream}..HEAD  | wc -l) != 0 && $(git rev-list HEAD..HEAD@{upstream} | wc -l) != 0 ]]; then
+            if [[ $(git rev-list HEAD@{upstream}..HEAD 2>/dev/null | wc -l) != 0 && $(git rev-list HEAD..HEAD@{upstream} 2>/dev/null | wc -l) != 0 ]]; then
                 echo 5 # diverged
-            elif [[ $(git rev-list HEAD@{upstream}..HEAD | wc -l) != 0 ]]; then
+            elif [[ $(git rev-list HEAD@{upstream}..HEAD 2>/dev/null | wc -l) != 0 ]]; then
                 echo 3 # ahead
-            elif [[ $(git rev-list HEAD..HEAD@{upstream} | wc -l) != 0 ]]; then
+            elif [[ $(git rev-list HEAD..HEAD@{upstream} 2>/dev/null | wc -l) != 0 ]]; then
                 echo 4 # behind
             else
                 echo 1 # clean
