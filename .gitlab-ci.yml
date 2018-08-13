@@ -14,4 +14,4 @@ lint:
   stage: lint
   script:
     - pip install bashate
-    - bashate *.sh
+    - bashate -i E006 *.sh
