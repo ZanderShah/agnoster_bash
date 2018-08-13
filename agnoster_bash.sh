@@ -15,7 +15,7 @@
 PROMPT_COLOR="\[\e[1;2m\]"
 
 function get_git_stat {
-    if [[ $(git rev-parse --git-dir 2>/dev/null | wc -l) == 0 ]]; then
+    if ! $(git rev-parse --is-inside-git-dir 2>/dev/null) && ! $(git rev-parse --is-inside-work-tree 2>/dev/null) && ! $(git rev-parse --is-bare-repository 2>/dev/null); then
         echo 0 # not a git repo
     else
         if [[ $(git status --porcelain 2>/dev/null | wc -l) != 0 ]]; then
