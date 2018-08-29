@@ -45,11 +45,23 @@ function is_git_detached {
 }
 
 function get_fg {
-    echo "\[\e[38;5;${1}m\]"
+    echo "\[\e[$((30+$1))m\]"
 }
 
 function get_bg {
-    echo "\[\e[48;5;${1}m\]"
+    echo "\[\e[$((40+$1))m\]"
+}
+
+function get_fg_def {
+    if [[ $# == 0 ]]; then
+        echo 9
+    else
+        if [[ $1 > 60 ]]; then
+            echo 0
+        else
+            echo 67
+        fi
+    fi
 }
 
 function ps1_gen {
@@ -69,15 +81,14 @@ function ps1_gen {
     PULL=$'\u21d3'
     MERGE=$'\u2694'
 
-    STAT_COLOR=232
-    VIRTUALENV_COLOR=18
-    DIR_COLOR=24
-    GIT_COLOR=30
-    FG_DEF=256
+    STAT_COLOR=0
+    VIRTUALENV_COLOR=64
+    DIR_COLOR=66
+    GIT_COLOR=62
     NO_COLOR="\[\e[0;39;49m\]"
 
     if [[ $retval != 0 ]]; then
-        prompt_stat="`get_fg 1`${CROSS}`get_fg $FG_DEF` "
+        prompt_stat="`get_fg 1`${CROSS}`get_fg $(get_fg_def)` "
     else
         prompt_stat=""
     fi
@@ -109,25 +120,25 @@ function ps1_gen {
             prompt_git="${prompt_git}${MERGE} "
         fi
         if [[ $GIT_STAT == 1 ]]; then
-            GIT_COLOR=28
+            GIT_COLOR=62
         elif [[ $GIT_STAT == 2 ]]; then
-            GIT_COLOR=52
+            GIT_COLOR=61
         else
-            GIT_COLOR=3
+            GIT_COLOR=63
         fi
     fi
 
     if [[ $prompt_stat != "" ]]; then
-        prompt_stat="`get_bg $STAT_COLOR``get_fg $FG_DEF`${prompt_stat}`get_fg $STAT_COLOR`"
+        prompt_stat="`get_bg $STAT_COLOR``get_fg $(get_fg_def)`${prompt_stat}`get_fg $STAT_COLOR`"
     fi
     if [[ $prompt_virtualenv != "" ]]; then
-        prompt_virtualenv="`get_bg $VIRTUALENV_COLOR`${SEGMENT_SEPARATOR}`get_fg $FG_DEF` ${prompt_virtualenv}`get_fg $VIRTUALENV_COLOR`"
+        prompt_virtualenv="`get_bg $VIRTUALENV_COLOR`${SEGMENT_SEPARATOR}`get_fg $(get_fg_def $VIRTUALENV_COLOR)` ${prompt_virtualenv}`get_fg $VIRTUALENV_COLOR`"
     fi
     if [[ $prompt_dir != "" ]]; then
-        prompt_dir="`get_bg $DIR_COLOR`${SEGMENT_SEPARATOR}`get_fg $FG_DEF` ${prompt_dir}`get_fg $DIR_COLOR`"
+        prompt_dir="`get_bg $DIR_COLOR`${SEGMENT_SEPARATOR}`get_fg $(get_fg_def $DIR_COLOR)` ${prompt_dir}`get_fg $DIR_COLOR`"
     fi
     if [[ $prompt_git != "" ]]; then
-        prompt_git="`get_bg $GIT_COLOR`${SEGMENT_SEPARATOR}`get_fg $FG_DEF` ${prompt_git}`get_fg $GIT_COLOR`"
+        prompt_git="`get_bg $GIT_COLOR`${SEGMENT_SEPARATOR}`get_fg $(get_fg_def $GIT_COLOR)` ${prompt_git}`get_fg $GIT_COLOR`"
     fi
     prompt_end="`get_bg 0`${SEGMENT_SEPARATOR}${NO_COLOR} "
 
@@ -153,7 +164,6 @@ function ps1_gen {
     unset DIR_COLOR
     unset GIT_COLOR
     unset NO_COLOR
-    unset FG_DEF
 }
 
 PS2="${PROMPT_COLOR}${PS2}\e[0m"
