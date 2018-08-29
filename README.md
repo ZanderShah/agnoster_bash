@@ -4,7 +4,7 @@ Agnoster BASH Theme
 a bash theme like agnoster zsh theme
 
 ## Usage
-1. set a powerline-compatible font for terminal; e.g. Monoco powerline-compatible font
+1. set a powerline-compatible font for terminal; e.g. Monaco powerline-compatible font
 2. append `agnoster_bash.sh` to your `~/.bash_profile`
 
 * powerline-compatible fonts: https://github.com/powerline/fonts/tree/master/SourceCodePro
